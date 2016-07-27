@@ -6,9 +6,6 @@ import com.alorma.github.sdk.services.client.GithubListClient;
 import java.util.List;
 import retrofit.RestAdapter;
 
-/**
- * Created by Bernat on 07/09/2014.
- */
 public class ListCommitsClient extends GithubListClient<List<Commit>> {
   private CommitInfo info;
   private String path;
@@ -52,20 +49,22 @@ public class ListCommitsClient extends GithubListClient<List<Commit>> {
             if (page == 0) {
               commitsService.commitsByPath(info.repoInfo.owner, info.repoInfo.name, path, this);
             } else {
-              commitsService.commitsByPath(info.repoInfo.owner, info.repoInfo.name, path, page,
-                  this);
+              commitsService.commitsByPath(info.repoInfo.owner, info.repoInfo.name, path, page, this);
             }
           } else {
             if (page == 0) {
-              commitsService.commitsByPath(info.repoInfo.owner, info.repoInfo.name, path, info.sha,
-                  this);
+              commitsService.commitsByPath(info.repoInfo.owner, info.repoInfo.name, path, info.sha, this);
             } else {
-              commitsService.commitsByPath(info.repoInfo.owner, info.repoInfo.name, path, info.sha,
-                  page, this);
+              commitsService.commitsByPath(info.repoInfo.owner, info.repoInfo.name, path, info.sha, page, this);
             }
           }
         }
       }
     };
+  }
+
+  @Override
+  public String getAcceptHeader() {
+    return "application/vnd.github.cryptographer-preview+sha.json";
   }
 }
